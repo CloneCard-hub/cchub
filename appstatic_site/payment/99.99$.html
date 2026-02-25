@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Payment</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{
+background:radial-gradient(circle at top,#1a0000,#000);
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+.payment-container{
+background:#0f0f0f;
+border:1px solid #ff1a1a;
+border-radius:20px;
+padding:35px;
+width:100%;
+max-width:420px;
+text-align:center;
+box-shadow:0 0 30px rgba(255,0,0,0.5);
+}
+.logo{font-size:24px;font-weight:bold;color:#ff1a1a;margin-bottom:8px;}
+.subtitle{font-size:13px;color:#aaa;margin-bottom:20px;}
+.countdown{font-size:26px;font-weight:bold;color:#ff1a1a;}
+.amount{
+background:#1a1a1a;
+padding:15px;
+border-radius:12px;
+border:1px solid #ff1a1a;
+margin-bottom:15px;
+}
+.amount h2{color:#ff4d4d;font-size:26px;}
+.network{margin-bottom:10px;color:#ccc;}
+.network span{color:#ff1a1a;font-weight:bold;}
+.qr-box{
+background:black;
+padding:15px;
+border-radius:15px;
+border:1px solid #ff1a1a;
+margin-bottom:15px;
+}
+.qr-box img{width:170px;height:170px;}
+.wallet{
+background:#1a1a1a;
+padding:12px;
+border-radius:8px;
+font-size:12px;
+word-break:break-all;
+border:1px solid #333;
+margin-bottom:15px;
+color:#ff4d4d;
+}
+.btn{
+padding:10px 22px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+margin:5px;
+transition:.3s;
+}
+.copy-btn{background:#ff1a1a;color:white;border:none;}
+.paid-btn{background:transparent;border:1px solid #ff1a1a;color:#ff1a1a;}
+.copy-btn:hover,.paid-btn:hover{background:#ff1a1a;color:white;}
+.active-payment{background:#ff1a1a!important;color:white!important;}
+.progress-container{width:100%;background:#1a1a1a;border-radius:6px;margin-top:8px;display:none;}
+.progress-bar{height:6px;width:0%;background:#ff1a1a;border-radius:6px;}
+.upload-success,.warning,.success-message{font-size:13px;margin-top:8px;display:none;}
+.upload-success,.success-message{color:#00ff88;}
+.warning{color:#ff4444;}
+.footer{margin-top:18px;font-size:11px;color:#666;}
+</style>
+</head>
+
+<body>
+
+<div class="payment-container">
+
+<div class="logo">Crypto Payment</div>
+<div class="subtitle">Choose your payment method</div>
+
+<div style="margin-bottom:20px;">
+<div>Payment expires in:</div>
+<div id="timer" class="countdown">30:00</div>
+</div>
+
+<div class="amount">
+<p>Amount to Pay</p>
+<h2 id="paymentAmount">99 USDT</h2>
+</div>
+
+<div>
+<button class="btn paid-btn active-payment" onclick="selectPayment('usdt')" id="usdtBtn">
+Pay with USDT
+</button>
+<button class="btn paid-btn" onclick="selectPayment('ltc')" id="ltcBtn">
+Pay with Litecoin
+</button>
+</div>
+
+<div class="network" id="networkText">
+Network: <span>BEP20 (BNB Smart Chain)</span>
+</div>
+
+<div class="qr-box">
+<img id="qrImage" src="QR/qr-code.jpg" alt="QR Code">
+</div>
+
+<div class="wallet" id="walletAddress">
+0xd715eae1e10b86ecbf25d68ade582b7c877375d3
+</div>
+
+<button class="btn copy-btn" onclick="copyAddress()">Copy Address</button>
+
+<!-- Upload -->
+<div style="margin-top:15px;">
+<input type="file" id="paymentProof" hidden accept="image/*,.pdf">
+<button class="btn paid-btn" onclick="document.getElementById('paymentProof').click()">
+Upload Payment Proof
+</button>
+
+<div class="progress-container" id="progressContainer">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div class="upload-success" id="uploadSuccess">
+✔ Payment proof uploaded successfully.
+</div>
+
+<div class="warning" id="uploadWarning">
+⚠ Please upload payment proof before confirming.
+</div>
+</div>
+
+<div style="margin-top:15px;">
+<button class="btn paid-btn" onclick="confirmPayment()">I Have Paid</button>
+</div>
+
+<div class="success-message" id="successMsg">
+✔ Payment confirmation received. We are verifying your transaction.
+</div>
+
+<div class="footer">
+Only crypto payments accepted.<br>
+Funds sent to wrong network cannot be recovered.
+</div>
+
+</div>
+
+<script>
+
+// CHANGE PRICE HERE
+let usdtAmount = 99;
+
+let selectedMethod = "usdt";
+let ltcPrice = 0;
+let proofUploaded = false;
+
+const wallets = {
+usdt: "0xd715eae1e10b86ecbf25d68ade582b7c877375d3",
+ltc: "LZ7jYFFtfec8MYisdJEnj8aQeSxbf6w5j2"
+};
+
+const qrImages = {
+usdt: "QR/qr-code.jpg",
+ltc: "QR/litecoin.jpg"
+};
+
+// Countdown
+let timeLeft = 1800;
+setInterval(()=>{
+let m=Math.floor(timeLeft/60);
+let s=timeLeft%60;
+s=s<10?"0"+s:s;
+document.getElementById("timer").textContent=m+":"+s;
+timeLeft--;
+},1000);
+
+// Fetch LTC price
+async function fetchLtcPrice(){
+try{
+const res=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=litecoin&vs_currencies=usd");
+const data=await res.json();
+ltcPrice=data.litecoin.usd;
+updateAmount();
+}catch(e){}
+}
+fetchLtcPrice();
+setInterval(fetchLtcPrice,30000);
+
+function updateAmount(){
+if(selectedMethod==="usdt"){
+document.getElementById("paymentAmount").textContent=usdtAmount+" USDT";
+}else if(ltcPrice>0){
+const ltc=(usdtAmount/ltcPrice).toFixed(6);
+document.getElementById("paymentAmount").textContent=ltc+" LTC";
+}
+}
+
+function selectPayment(method){
+selectedMethod=method;
+
+document.getElementById("usdtBtn").classList.remove("active-payment");
+document.getElementById("ltcBtn").classList.remove("active-payment");
+
+if(method==="usdt"){
+document.getElementById("usdtBtn").classList.add("active-payment");
+document.getElementById("networkText").innerHTML='Network: <span>BEP20 (BNB Smart Chain)</span>';
+}else{
+document.getElementById("ltcBtn").classList.add("active-payment");
+document.getElementById("networkText").innerHTML='Network: <span>Litecoin</span>';
+}
+
+document.getElementById("walletAddress").textContent=wallets[method];
+document.getElementById("qrImage").src=qrImages[method];
+
+updateAmount();
+}
+
+function copyAddress(){
+navigator.clipboard.writeText(document.getElementById("walletAddress").textContent);
+alert("Wallet address copied!");
+}
+
+// Fake upload
+document.getElementById("paymentProof").addEventListener("change",function(){
+let progress=0;
+document.getElementById("progressContainer").style.display="block";
+const fake=setInterval(()=>{
+progress+=10;
+document.getElementById("progressBar").style.width=progress+"%";
+if(progress>=100){
+clearInterval(fake);
+document.getElementById("uploadSuccess").style.display="block";
+proofUploaded=true;
+}
+},200);
+});
+
+function confirmPayment(){
+if(!proofUploaded){
+document.getElementById("uploadWarning").style.display="block";
+return;
+}
+document.getElementById("successMsg").style.display="block";
+setTimeout(()=>{window.location.href="order.html";},2000);
+}
+
+</script>
+
+</body>
+</html>

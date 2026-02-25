@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Details</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at top, #1a0000, #000);
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.order-container {
+    background: #0f0f0f;
+    border: 1px solid #ff1a1a;
+    border-radius: 20px;
+    padding: 35px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 0 30px rgba(255,0,0,0.5);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff1a1a;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #ff4d4d;
+    border-bottom: 1px solid #222;
+    padding-bottom: 5px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.pending {
+    background: #332200;
+    color: orange;
+}
+
+.verifying {
+    background: #001a33;
+    color: #00aaff;
+}
+
+.completed {
+    background: #003322;
+    color: #00ff88;
+}
+
+.product-box {
+    background: #1a1a1a;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #222;
+}
+
+.total {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff1a1a;
+    text-align: right;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.invoice-btn {
+    background: #ff1a1a;
+    color: white;
+}
+
+.invoice-btn:hover {
+    background: #cc0000;
+}
+
+.timeline {
+    margin-top: 10px;
+}
+
+.timeline-step {
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #aaa;
+}
+
+.active-step {
+    color: #ff1a1a;
+    font-weight: bold;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 11px;
+    color: #666;
+}
+</style>
+</head>
+
+<body>
+
+<div class="order-container">
+
+    <div class="logo">Order Details</div>
+
+    <!-- Order Info -->
+    <div class="section">
+        <div class="section-title">Order Information</div>
+        <div class="info-row">
+            <span>Order ID:</span>
+            <span>#ORD-784512</span>
+        </div>
+        <div class="info-row">
+            <span>Date:</span>
+            <span id="orderDate"></span>
+        </div>
+        <div class="info-row">
+            <span>Payment Method:</span>
+            <span>USDT (BEP20)</span>
+        </div>
+        <div class="info-row">
+            <span>Status:</span>
+            <span class="status verifying">Verifying</span>
+        </div>
+    </div>
+
+    <!-- Products -->
+    <div class="section">
+        <div class="section-title">Products</div>
+
+        <div class="product-box">
+            <div class="info-row">
+                <span>Premium Subscription</span>
+                <span>199.99 USDT</span>
+            </div>
+        </div>
+
+        <div class="total">
+            Total: 199.99 USDT
+        </div>
+    </div>
+
+    <!-- Status Timeline -->
+    <div class="section">
+        <div class="section-title">Order Progress</div>
+        <div class="timeline">
+            <div class="timeline-step active-step">✔ Payment Submitted</div>
+            <div class="timeline-step active-step">✔ Payment Under Verification</div>
+            <div class="timeline-step">• Order Processing</div>
+            <div class="timeline-step">• Completed</div>
+        </div>
+    </div>
+
+    <a href="#" class="btn invoice-btn" onclick="downloadInvoice()">
+        Download Invoice
+    </a>
+
+    <div class="footer">
+        Need help? Contact support with your Order ID.
+    </div>
+
+</div>
+
+<script>
+// Get order data
+const order = JSON.parse(localStorage.getItem("order"));
+
+// If no order exists → block access
+if (!order) {
+    document.body.innerHTML = `
+        <div style="color:white;text-align:center;margin-top:100px;">
+            <h2>Access Denied</h2>
+            <p>No order found.</p>
+        </div>
+    `;
+} else {
+    document.querySelector(".info-row:nth-child(1) span:last-child").innerText = "#" + order.orderId;
+    document.getElementById("orderDate").innerText = order.date;
+}
+</script>
+
+</body>
+</html>
