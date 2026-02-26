@@ -18,6 +18,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 10px; /* allow spacing on small screens */
 }
 
 .chat-container{
@@ -43,7 +44,6 @@ body{
     position: relative;
 }
 
-/* Go Back Home Button */
 .go-home-btn{
     position: absolute;
     left: 10px;
@@ -143,6 +143,44 @@ body{
     background-color: rgba(255,0,0,0.4);
     border-radius: 3px;
 }
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media(max-width:480px){
+    .chat-container{
+        height: 90vh; /* taller on small screens */
+    }
+
+    .chat-input input{
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .chat-input button{
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .chat-notice{
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+
+    .chat-header{
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .go-home-btn{
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+
+    .message{
+        max-width: 90%;
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+}
 </style>
 </head>
 <body>
@@ -153,12 +191,10 @@ body{
         Live Chat
     </div>
     <div class="chat-notice">We will contact you within 1–24 hours.</div>
-    <div class="chat-messages" id="chatMessages">
-        <!-- Messages will appear here -->
-    </div>
+    <div class="chat-messages" id="chatMessages"></div>
     <div class="chat-input">
         <input type="text" id="messageInput" placeholder="Type your message...">
-        <button onclick="sendMessage()">Sent
+        <button onclick="sendMessage()">Send</button>
     </div>
 </div>
 
@@ -166,11 +202,13 @@ body{
 const chatMessages = document.getElementById('chatMessages');
 const messageInput = document.getElementById('messageInput');
 
+let hasReplied = false; // Only reply once
+
 function sendMessage() {
     const text = messageInput.value.trim();
     if(text === '') return;
 
-    // Add user message
+    // User message
     const userMsg = document.createElement('div');
     userMsg.classList.add('message', 'user');
     userMsg.textContent = text;
@@ -179,22 +217,25 @@ function sendMessage() {
     messageInput.value = '';
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
-    // Simulated bot reply
-    setTimeout(() => {
-        const botMsg = document.createElement('div');
-        botMsg.classList.add('message', 'bot');
-        botMsg.textContent = "Thank you for your message. We will respond soon!";
-        chatMessages.appendChild(botMsg);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }, 1000);
+    // Bot reply only once
+    if(!hasReplied){
+        setTimeout(() => {
+            const botMsg = document.createElement('div');
+            botMsg.classList.add('message', 'bot');
+            botMsg.textContent = "Thank you for your message. We will respond soon!";
+            chatMessages.appendChild(botMsg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 1000);
+
+        hasReplied = true;
+    }
 }
 
-// Send message on Enter key
+// Enter key send
 messageInput.addEventListener('keypress', function(e){
     if(e.key === 'Enter') sendMessage();
 });
 </script>
 
 </body>
-
 </html>
