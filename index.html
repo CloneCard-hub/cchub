@@ -338,54 +338,48 @@ footer{
         <!-- Stats Section -->
         <div class="stats-container">
             <div class="stat-item">
-                <h3 id="cards-delivered">6M+</h3>
+                <h3 id="cards-delivered" data-target="6000000">0</h3>
                 <p>Cards delivered</p>
             </div>
             <div class="stat-item">
-                <h3 id="processed-volume">$1.2M+</h3>
+                <h3 id="processed-volume" data-target="1200000">0</h3>
                 <p>Processed volume</p>
             </div>
             <div class="stat-item">
-                <h3 id="uptime">99.98%</h3>
+                <h3 id="uptime" data-target="99.98">0</h3>
                 <p>Uptime</p>
             </div>
             <div class="stat-item">
-                <h3 id="countries">120+</h3>
+                <h3 id="countries" data-target="120">0</h3>
                 <p>Countries</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Include your other page scripts here -->
-
-<!-- Styles and JavaScript -->
 <style>
     /* Section Styling */
     .crypto-achievement-section {
-        background-color: #000; /* Black background */
-        color: white; /* White text color */
-        padding: 60px 0;
+        background-color: #000;
+        color: white;
+        padding: 60px 20px;
         text-align: center;
     }
 
-    /* Header Styling */
     .section-header h2 {
         font-size: 36px;
         font-weight: bold;
-        color: red; /* Red color for the title */
+        color: red;
         margin-bottom: 15px;
     }
 
     .section-header p {
         font-size: 18px;
-        color: white; /* White text for description */
+        color: white;
         max-width: 800px;
-        margin: 0 auto;
-        margin-bottom: 40px;
+        margin: 0 auto 40px auto;
     }
 
-    /* Stats Container */
     .stats-container {
         display: flex;
         justify-content: center;
@@ -394,7 +388,7 @@ footer{
     }
 
     .stat-item {
-        background-color: #222; /* Dark grey for each stat box */
+        background-color: #222;
         padding: 30px;
         border-radius: 8px;
         width: 250px;
@@ -409,34 +403,101 @@ footer{
     .stat-item h3 {
         font-size: 40px;
         font-weight: bold;
-        color: red; /* Red for the numbers */
+        color: red;
         margin: 0;
     }
 
     .stat-item p {
         font-size: 18px;
-        color: white; /* White for the description */
+        color: white;
+    }
+
+    /* ===== Mobile Responsive ===== */
+    @media (max-width: 1024px) {
+        .section-header h2 { font-size: 32px; }
+        .section-header p { font-size: 16px; }
+        .stat-item h3 { font-size: 36px; }
+        .stat-item p { font-size: 16px; }
+    }
+
+    @media (max-width: 768px) {
+        .stats-container {
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .stat-item {
+            width: 80%;
+            padding: 25px;
+        }
+
+        .section-header h2 { font-size: 28px; }
+        .section-header p { font-size: 15px; margin-bottom: 30px; }
+        .stat-item h3 { font-size: 32px; }
+        .stat-item p { font-size: 15px; }
+    }
+
+    @media (max-width: 480px) {
+        .crypto-achievement-section { padding: 40px 15px; }
+        .section-header h2 { font-size: 24px; }
+        .section-header p { font-size: 14px; margin-bottom: 25px; }
+        .stat-item h3 { font-size: 28px; }
+        .stat-item p { font-size: 14px; }
     }
 </style>
 
 <script>
-    // Example of how JavaScript can be used to dynamically update stats, if needed
-    document.addEventListener('DOMContentLoaded', function() {
-        const stats = {
-            cardsDelivered: "51M+",
-            processedVolume: "$1.2M+",
-            uptime: "99.98%",
-            countries: "120+"
-        };
+    // Animated Counters
+    function animateCounter(element, target, duration = 2000) {
+        let start = 0;
+        const increment = target / (duration / 16); // approx 60fps
+        function updateCounter() {
+            start += increment;
+            if (start < target) {
+                element.innerText = formatNumber(start, element.id);
+                requestAnimationFrame(updateCounter);
+            } else {
+                element.innerText = formatNumber(target, element.id);
+            }
+        }
+        requestAnimationFrame(updateCounter);
+    }
 
-        // Set the values dynamically if needed
-        document.getElementById('cards-delivered').innerText = stats.cardsDelivered;
-        document.getElementById('processed-volume').innerText = stats.processedVolume;
-        document.getElementById('uptime').innerText = stats.uptime;
-        document.getElementById('countries').innerText = stats.countries;
+    // Formatting numbers (add suffixes like M or $)
+    function formatNumber(num, id) {
+        if (id === 'cards-delivered') return Math.floor(num / 1000000) + 'M+';
+        if (id === 'processed-volume') return '$' + (num / 1000000).toFixed(1) + 'M+';
+        if (id === 'uptime') return num.toFixed(2) + '%';
+        if (id === 'countries') return Math.floor(num) + '+';
+        return Math.floor(num);
+    }
+
+    // Trigger animation when stats are visible
+    function isInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom >= 0;
+    }
+
+    document.addEventListener('scroll', () => {
+        document.querySelectorAll('.stat-item h3').forEach(el => {
+            if (!el.dataset.animated && isInViewport(el)) {
+                animateCounter(el, parseFloat(el.dataset.target));
+                el.dataset.animated = true; // prevent re-animation
+            }
+        });
+    });
+
+    // Initial check in case already in viewport
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.stat-item h3').forEach(el => {
+            if (isInViewport(el)) {
+                animateCounter(el, parseFloat(el.dataset.target));
+                el.dataset.animated = true;
+            }
+        });
     });
 </script>
-
 
 <footer>
     © 2026 CCHub | All Rights Reserved
@@ -459,4 +520,3 @@ toggle.addEventListener("click", () => {
 
 </body>
 </html>
-
