@@ -329,28 +329,33 @@ footer{
 <!-- Your Last Section -->
 <section id="crypto-achievement-section" class="crypto-achievement-section">
     <div class="container">
-        <!-- Title and Description -->
+        
         <div class="section-header">
             <h2>Pay with your favorite crypto</h2>
-            <p>We support multiple cryptocurrencies for order. Send payment, upload screenshot, and get your card on the order section within minutes after admin confirmation.</p>
+            <p>
+                We support multiple cryptocurrencies for order. Send payment, upload screenshot, 
+                and get your card on the order section within minutes after admin confirmation.
+            </p>
         </div>
 
-        <!-- Stats Section -->
         <div class="stats-container">
             <div class="stat-item">
-                <h3 id="cards-delivered" data-target="6000000">0</h3>
+                <h3 class="counter" data-target="5500">0</h3>
                 <p>Cards delivered</p>
             </div>
+
             <div class="stat-item">
-                <h3 id="processed-volume" data-target="1200000">0</h3>
-                <p>Processed volume</p>
+                <h3 class="counter" data-target="12000">0</h3>
+                <p>Processed volume ($)</p>
             </div>
+
             <div class="stat-item">
-                <h3 id="uptime" data-target="99.98">0</h3>
+                <h3>99.98%</h3>
                 <p>Uptime</p>
             </div>
+
             <div class="stat-item">
-                <h3 id="countries" data-target="120">0</h3>
+                <h3 class="counter" data-target="110">0</h3>
                 <p>Countries</p>
             </div>
         </div>
@@ -358,145 +363,153 @@ footer{
 </section>
 
 <style>
-    /* Section Styling */
-    .crypto-achievement-section {
-        background-color: #000;
-        color: white;
-        padding: 60px 20px;
-        text-align: center;
-    }
+.crypto-achievement-section {
+    background-color: #000;
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+    overflow: hidden;
+}
 
-    .section-header h2 {
-        font-size: 36px;
-        font-weight: bold;
-        color: red;
-        margin-bottom: 15px;
-    }
+.section-header h2 {
+    font-size: 36px;
+    font-weight: bold;
+    color: red;
+    margin-bottom: 15px;
+}
 
-    .section-header p {
-        font-size: 18px;
-        color: white;
-        max-width: 800px;
-        margin: 0 auto 40px auto;
-    }
+.section-header p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    line-height: 1.6;
+}
 
+.stats-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.stat-item {
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 12px;
+    width: 250px;
+    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.stat-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.stat-item:hover {
+    transform: translateY(-8px) scale(1.05);
+}
+
+.stat-item h3 {
+    font-size: 38px;
+    color: red;
+    margin-bottom: 10px;
+}
+
+.stat-item p {
+    font-size: 18px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 992px) {
     .stats-container {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 30px;
+        gap: 20px;
     }
 
     .stat-item {
-        background-color: #222;
-        padding: 30px;
-        border-radius: 8px;
-        width: 250px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s ease;
+        width: 45%;
+    }
+}
+
+@media (max-width: 600px) {
+    .section-header h2 {
+        font-size: 26px;
     }
 
-    .stat-item:hover {
-        transform: scale(1.05);
+    .section-header p {
+        font-size: 16px;
+    }
+
+    .stat-item {
+        width: 100%;
+        padding: 25px;
     }
 
     .stat-item h3 {
-        font-size: 40px;
-        font-weight: bold;
-        color: red;
-        margin: 0;
+        font-size: 30px;
     }
 
     .stat-item p {
-        font-size: 18px;
-        color: white;
+        font-size: 16px;
     }
-
-    /* ===== Mobile Responsive ===== */
-    @media (max-width: 1024px) {
-        .section-header h2 { font-size: 32px; }
-        .section-header p { font-size: 16px; }
-        .stat-item h3 { font-size: 36px; }
-        .stat-item p { font-size: 16px; }
-    }
-
-    @media (max-width: 768px) {
-        .stats-container {
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .stat-item {
-            width: 80%;
-            padding: 25px;
-        }
-
-        .section-header h2 { font-size: 28px; }
-        .section-header p { font-size: 15px; margin-bottom: 30px; }
-        .stat-item h3 { font-size: 32px; }
-        .stat-item p { font-size: 15px; }
-    }
-
-    @media (max-width: 480px) {
-        .crypto-achievement-section { padding: 40px 15px; }
-        .section-header h2 { font-size: 24px; }
-        .section-header p { font-size: 14px; margin-bottom: 25px; }
-        .stat-item h3 { font-size: 28px; }
-        .stat-item p { font-size: 14px; }
-    }
+}
 </style>
 
 <script>
-    // Animated Counters
-    function animateCounter(element, target, duration = 2000) {
-        let start = 0;
-        const increment = target / (duration / 16); // approx 60fps
-        function updateCounter() {
-            start += increment;
-            if (start < target) {
-                element.innerText = formatNumber(start, element.id);
-                requestAnimationFrame(updateCounter);
+document.addEventListener("DOMContentLoaded", function () {
+
+    const counters = document.querySelectorAll(".counter");
+    const statItems = document.querySelectorAll(".stat-item");
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+
+                const counter = entry.target.querySelector(".counter");
+                if (counter && !counter.classList.contains("counted")) {
+                    animateCounter(counter);
+                    counter.classList.add("counted");
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    statItems.forEach(item => {
+        observer.observe(item);
+    });
+
+    function animateCounter(counter) {
+        const target = +counter.getAttribute("data-target");
+        let count = 0;
+        const speed = target / 100;
+
+        const updateCount = () => {
+            if (count < target) {
+                count += speed;
+                counter.innerText = formatNumber(Math.ceil(count));
+                requestAnimationFrame(updateCount);
             } else {
-                element.innerText = formatNumber(target, element.id);
+                counter.innerText = formatNumber(target);
             }
+        };
+
+        updateCount();
+    }
+
+    function formatNumber(num) {
+        if (num >= 1000000) {
+            return (num / 1000000).toFixed(1) + "M+";
         }
-        requestAnimationFrame(updateCounter);
+        if (num >= 1000) {
+            return (num / 1000).toFixed(1) + "K+";
+        }
+        return num + "+";
     }
 
-    // Formatting numbers (add suffixes like M or $)
-    function formatNumber(num, id) {
-        if (id === 'cards-delivered') return Math.floor(num / 1000000) + 'M+';
-        if (id === 'processed-volume') return '$' + (num / 1000000).toFixed(1) + 'M+';
-        if (id === 'uptime') return num.toFixed(2) + '%';
-        if (id === 'countries') return Math.floor(num) + '+';
-        return Math.floor(num);
-    }
-
-    // Trigger animation when stats are visible
-    function isInViewport(el) {
-        const rect = el.getBoundingClientRect();
-        return rect.top < window.innerHeight && rect.bottom >= 0;
-    }
-
-    document.addEventListener('scroll', () => {
-        document.querySelectorAll('.stat-item h3').forEach(el => {
-            if (!el.dataset.animated && isInViewport(el)) {
-                animateCounter(el, parseFloat(el.dataset.target));
-                el.dataset.animated = true; // prevent re-animation
-            }
-        });
-    });
-
-    // Initial check in case already in viewport
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.stat-item h3').forEach(el => {
-            if (isInViewport(el)) {
-                animateCounter(el, parseFloat(el.dataset.target));
-                el.dataset.animated = true;
-            }
-        });
-    });
+});
 </script>
 
 <footer>
@@ -520,3 +533,4 @@ toggle.addEventListener("click", () => {
 
 </body>
 </html>
+
