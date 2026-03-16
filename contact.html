@@ -6,119 +6,187 @@
 <title>Contact Us</title>
 
 <style>
+
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-    background:linear-gradient(135deg,#000000,#1a0000);
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+background:linear-gradient(135deg,#000000,#1a0000);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
 }
 
+/* Contact Box */
+
 .contact-container{
-    background:#111;
-    padding:40px;
-    width:90%;
-    max-width:500px;
-    border-radius:12px;
-    box-shadow:0 0 25px rgba(255,0,0,0.3);
-    color:white;
+background:#111;
+padding:35px;
+width:100%;
+max-width:500px;
+border-radius:12px;
+box-shadow:0 0 25px rgba(255,0,0,0.25);
+color:white;
 }
 
 .contact-container h2{
-    text-align:center;
-    margin-bottom:25px;
-    color:#ff1a1a;
+text-align:center;
+margin-bottom:25px;
+color:#ff1a1a;
+font-size:28px;
 }
 
+/* Inputs */
+
 .input-group{
-    margin-bottom:20px;
+margin-bottom:18px;
 }
 
 .input-group label{
-    display:block;
-    margin-bottom:6px;
-    font-size:14px;
-    color:#ccc;
+display:block;
+margin-bottom:6px;
+font-size:14px;
+color:#ccc;
 }
 
 .input-group input,
 .input-group textarea{
-    width:100%;
-    padding:12px;
-    border:1px solid #333;
-    background:#1a1a1a;
-    color:white;
-    border-radius:6px;
-    outline:none;
+width:100%;
+padding:12px;
+border:1px solid #333;
+background:#1a1a1a;
+color:white;
+border-radius:6px;
+outline:none;
+font-size:14px;
 }
 
 .input-group input:focus,
 .input-group textarea:focus{
-    border-color:#ff1a1a;
-    box-shadow:0 0 8px #ff1a1a;
+border-color:#ff1a1a;
+box-shadow:0 0 8px #ff1a1a;
 }
 
+/* Send Button */
+
 button{
-    width:100%;
-    padding:12px;
-    border:none;
-    background:#ff1a1a;
-    color:white;
-    font-size:16px;
-    border-radius:6px;
-    cursor:pointer;
-    transition:0.3s;
+width:100%;
+padding:12px;
+border:none;
+background:#ff1a1a;
+color:white;
+font-size:16px;
+border-radius:6px;
+cursor:pointer;
+transition:0.3s;
 }
 
 button:hover{
-    background:#cc0000;
-    box-shadow:0 0 10px #ff0000;
+background:#cc0000;
+box-shadow:0 0 10px #ff0000;
 }
 
-.footer-text{
-    text-align:center;
-    margin-top:15px;
-    font-size:13px;
-    color:#777;
+/* Telegram Button */
+
+.telegram-btn{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+margin-top:12px;
+padding:12px;
+background:#0088cc;
+color:white;
+text-decoration:none;
+border-radius:6px;
+font-size:15px;
+transition:0.3s;
 }
+
+.telegram-btn:hover{
+background:#0077b5;
+box-shadow:0 0 10px #0088cc;
+}
+
+/* Telegram Icon */
+
+.telegram-btn svg{
+width:18px;
+height:18px;
+fill:white;
+}
+
+/* Footer */
+
+.footer-text{
+text-align:center;
+margin-top:15px;
+font-size:13px;
+color:#777;
+}
+
+/* Mobile */
+
+@media(max-width:480px){
+
+.contact-container{
+padding:25px;
+}
+
+.contact-container h2{
+font-size:24px;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="contact-container">
-    <h2>Contact Us</h2>
 
-    <!-- Redirect Added Here -->
-    <form action="thnakyou.html">
-        <div class="input-group">
-            <label>Full Name</label>
-            <input type="text" required>
-        </div>
+<h2>Contact Us</h2>
 
-        <div class="input-group">
-            <label>Email Address</label>
-            <input type="email" required>
-        </div>
+<form action="thankyou.html">
 
-        <div class="input-group">
-            <label>Your Message</label>
-            <textarea rows="4" required></textarea>
-        </div>
+<div class="input-group">
+<label>Full Name</label>
+<input type="text" required>
+</div>
 
-        <button type="submit">Send Message</button>
-    </form>
+<div class="input-group">
+<label>Email Address</label>
+<input type="email" required>
+</div>
 
-    <div class="footer-text">
-        We'll get back to you within 24 hours.
-    </div>
+<div class="input-group">
+<label>Your Message</label>
+<textarea rows="4" required></textarea>
+</div>
+
+<button type="submit">Send Message</button>
+
+<a href="https://t.me/clone_cardhub" target="_blank" class="telegram-btn">
+
+<svg viewBox="0 0 24 24">
+<path d="M9.04 15.47l-.39 5.49c.56 0 .8-.24 1.1-.52l2.64-2.53 5.48 4.01c1 .55 1.71.26 1.96-.93l3.55-16.63c.33-1.54-.55-2.14-1.52-1.77L1.71 9.27C.23 9.84.25 10.68 1.46 11.05l5.55 1.73L19.89 5.7c.61-.38 1.17-.17.71.21"/>
+</svg>
+
+Contact us on Telegram
+
+</a>
+
+<div class="footer-text">
+We'll get back to you within 24 hours.
+</div>
+
 </div>
 
 </body>
