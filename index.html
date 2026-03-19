@@ -174,7 +174,75 @@ footer{
     color:#888;
     font-size:14px;
 }
+/* TELEGRAM SECTION */
+.telegram-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: #111;
+}
 
+.telegram-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 22px;
+    font-weight: bold;
+    color: red;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.logo-wrapper {
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+.logo-wrapper img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transition: opacity 0.3s ease;
+}
+
+.logo-default { opacity: 1; }
+.logo-hover { opacity: 0; }
+
+.telegram-btn:hover { color: #0088cc; }
+.telegram-btn:hover .logo-default { opacity: 0; }
+.telegram-btn:hover .logo-hover { opacity: 1; }
+
+.telegram-btn:active { transform: scale(0.92); }
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:20px;
+    background:#111;
+    margin-top:50px;
+    color:#888;
+    font-size:14px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+    .menu-toggle{ display:block; }
+
+    nav{
+        display:none;
+        flex-direction:column;
+        width:100%;
+        background:#111;
+        margin-top:15px;
+    }
+
+    nav.active{ display:flex; }
+
+    .hero h1{ font-size:28px; }
+    .hero p{ font-size:15px; }
+}
 /* ===== RESPONSIVE BREAKPOINTS ===== */
 
 /* Tablets */
@@ -587,6 +655,17 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<!-- TELEGRAM SECTION -->
+<section class="telegram-section">
+    <a href="https://t.me/yourusername" target="_blank" class="telegram-btn">
+        <div class="logo-wrapper">
+            <img src="red.jpeg" class="logo-default">
+            <img src="bluee.jpeg" class="logo-hover">
+        </div>
+        TELEGRAM
+    </a>
+</section>
+
 <footer>
     © 2026 CCHub | All Rights Reserved
 </footer>
@@ -597,15 +676,8 @@ const nav = document.getElementById("navbar");
 
 toggle.addEventListener("click", () => {
     nav.classList.toggle("active");
-
-    if (nav.classList.contains("active")) {
-        toggle.innerHTML = "✕";
-    } else {
-        toggle.innerHTML = "☰";
-    }
 });
 </script>
 
 </body>
 </html>
-
