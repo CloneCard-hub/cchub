@@ -330,19 +330,21 @@ footer{
 
 <header>
    <div class="logo">
-    <img src="logo.png" alt="CCHub Logo">
-</div>
-    <div class="menu-toggle" id="menu-toggle">☰</div>
+       <img src="logo.png" alt="CCHub Logo">
+   </div>
+
+   <div class="menu-toggle" id="menu-toggle">☰</div>
+
    <nav id="navbar">
-    <a href="items.html">NON vbv</a>
-    <a href="payment/order.html">Orders</a>
-    <a href="contact.html">Contact</a>
-    <a href="support.html">Support</a>
-    <a href="about.html">About</a>
-    <a href="singup.html">Signup</a>
-    <a href="login.html" onclick="openLogin()">Login</a>
-    <a href="#" id="logoutBtn" onclick="logout()" style="display:none;">Logout</a>
-</nav>
+       <a href="items.html">NON vbv</a>
+       <a href="payment/order.html">Orders</a>
+       <a href="contact.html">Contact</a>
+       <a href="support.html">Support</a>
+       <a href="about.html">About</a>
+       <a href="singup.html">Signup</a>
+       <a href="login.html" onclick="openLogin()">Login</a>
+       <a href="#" id="logoutBtn" onclick="logout()" style="display:none;">Logout</a>
+   </nav>
 </header>
 
 <section class="hero">
@@ -671,11 +673,13 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 <script>
-// MENU TOGGLE
+// MOBILE MENU TOGGLE
+const toggle = document.getElementById("menu-toggle");
+const nav = document.getElementById("navbar");
 
-document.getElementById("menu-toggle").onclick = function(){
-    document.getElementById("navbar").classList.toggle("active");
-};
+toggle.addEventListener("click", () => {
+    nav.classList.toggle("active");
+});
 
 // OPEN / CLOSE LOGIN
 function openLogin(){
