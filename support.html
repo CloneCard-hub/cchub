@@ -1,49 +1,133 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Support - My Website</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-body {
+/* Global Styles */
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #111;
-  color: white;
-  text-align: center;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  background-color: #0f0f0f;
+  color: #fff;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+/* Header */
 .header {
-  background-color: black;
-  padding: 20px;
-  color: red;
-  font-size: 28px;
-  font-weight: bold;
+  background: linear-gradient(90deg, #c80404, #ff0000);
+  padding: 25px 20px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
 
+/* Support Container */
 .support-container {
-  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
 }
 
+/* Support Box */
 .support-box {
-  background: #000;
-  border: 2px solid red;
-  display: inline-block;
-  padding: 30px;
-  border-radius: 10px;
-  width: 300px;
+  background: #111;
+  border: 2px solid #c80404;
+  border-radius: 15px;
+  padding: 40px 30px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(255, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
+.support-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(255, 0, 0, 0.4);
+}
+
+.support-box h2 {
+  font-size: 28px;
+  color: #ff4d4d;
+  margin-bottom: 15px;
+}
+
+.support-box p {
+  font-size: 16px;
+  margin-bottom: 25px;
+  color: #ccc;
+}
+
+/* Support Buttons */
 .support-box a {
   display: block;
-  margin: 15px 0;
-  padding: 10px;
-  background: red;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
+  margin: 12px 0;
+  padding: 12px 0;
+  background: #c80404;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: 0.3s;
 }
 
 .support-box a:hover {
-  background: darkred;
+  background: #ff1a1a;
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .support-container {
+    padding: 40px 15px;
+  }
+
+  .support-box {
+    padding: 30px 20px;
+  }
+
+  .support-box h2 {
+    font-size: 24px;
+  }
+
+  .support-box p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    font-size: 26px;
+    padding: 20px 15px;
+  }
+
+  .support-box {
+    padding: 25px 15px;
+  }
+
+  .support-box h2 {
+    font-size: 22px;
+  }
+
+  .support-box p {
+    font-size: 13px;
+  }
 }
 </style>
 </head>
@@ -56,7 +140,7 @@ body {
 <div class="support-container">
   <div class="support-box">
     <h2>Need Help?</h2>
-    <p>Contact us below:</p>
+    <p>Contact our team for assistance:</p>
     <a href="contact.html">Email Support</a>
     <a href="livechat.html">Live Chat</a>
   </div>
