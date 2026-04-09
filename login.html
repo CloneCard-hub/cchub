@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - CCHub</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#0f0f0f;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+/* LOGIN BOX */
+.login-container{
+    background:#1a1a1a;
+    padding:40px;
+    border-radius:10px;
+    width:320px;
+    text-align:center;
+    box-shadow:0 0 20px rgba(255,0,0,0.2);
+}
+
+.login-container h2{
+    margin-bottom:25px;
+}
+
+/* INPUTS */
+.login-container input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:none;
+    border-radius:5px;
+    background:#111;
+    color:#fff;
+}
+
+/* BUTTON */
+.login-container button{
+    width:100%;
+    padding:12px;
+    background:#ca1606;
+    border:none;
+    border-radius:5px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.login-container button:hover{
+    background:#fff;
+}
+
+/* BACK LINK */
+.back{
+    display:block;
+    margin-top:15px;
+    color:#888;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.back:hover{
+    color:#fff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-container">
+    <h2>Login</h2>
+
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <a href="index.html" class="back">← Back to Home</a>
+</div>
+
+<script>
+// LOGIN FUNCTION
+function login(){
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    const users = JSON.parse(localStorage.getItem("users") || "{}");
+    if(users[user] && users[user] === pass){
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("user", user);
+
+        alert("Login successful 🔥");
+        window.location.href = "index.html";
+    } else {
+        alert("Invalid credentials ❌");
+    }
+}
+
+// AUTO REDIRECT IF ALREADY LOGGED IN
+if(localStorage.getItem("loggedIn") === "true"){
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
