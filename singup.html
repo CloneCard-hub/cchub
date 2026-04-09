@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signup - CCHub</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;}
+body{
+    background:#0f0f0f;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+.signup-container{
+    background:#1a1a1a;
+    padding:40px;
+    border-radius:10px;
+    width:320px;
+    text-align:center;
+    box-shadow:0 0 20px rgba(255,0,0,0.2);
+}
+.signup-container h2{margin-bottom:25px;}
+.signup-container input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:none;
+    border-radius:5px;
+    background:#111;
+    color:#fff;
+}
+.signup-container button{
+    width:100%;
+    padding:12px;
+    background:#ca1606;
+    border:none;
+    border-radius:5px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+.signup-container button:hover{background:#fff;}
+.back{
+    display:block;
+    margin-top:15px;
+    color:#888;
+    text-decoration:none;
+    font-size:14px;
+}
+.back:hover{color:#fff;}
+</style>
+</head>
+
+<body>
+
+<div class="signup-container">
+    <h2>Signup</h2>
+
+    <input type="text" id="newUsername" placeholder="Username">
+    <input type="password" id="newPassword" placeholder="Password">
+
+    <button onclick="signup()">Signup</button>
+
+    <a href="login.html" class="back">← Already have an account? Login</a>
+</div>
+
+<script>
+// SIGNUP FUNCTION
+function signup(){
+    const user = document.getElementById("newUsername").value;
+    const pass = document.getElementById("newPassword").value;
+
+    if(!user || !pass){
+        alert("Fill all fields ❌");
+        return;
+    }
+
+    // STORE USER IN LOCALSTORAGE
+    const users = JSON.parse(localStorage.getItem("users") || "{}");
+    if(users[user]){
+        alert("Username already exists ❌");
+        return;
+    }
+
+    users[user] = pass;
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Signup successful 🔥");
+    window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
