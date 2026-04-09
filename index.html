@@ -70,7 +70,12 @@ nav a:hover{
     justify-content:center;
     align-items:center;
     text-align:center;
-    background:linear-gradient(to right,#000,#111);
+    background:
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+        url('hero.png');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
     padding:40px 20px;
 }
 
@@ -206,6 +211,10 @@ footer{
     top: 0;
     transition: opacity 0.3s ease;
 }
+.logo img{
+    height:40px;
+    width:auto;
+}
 
 .logo-default { opacity: 1; }
 .logo-hover { opacity: 0; }
@@ -311,18 +320,21 @@ footer{
     .products h2{
         font-size:24px;
     }
+
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">CCHub</div>
+   <div class="logo">
+    <img src="logo.png" alt="CCHub Logo">
+</div>
     <div class="menu-toggle" id="menu-toggle">☰</div>
     <nav id="navbar">
-        <a href="index.html">Home</a>
-        <a href="items.html">Shop</a>
+        <a href="items.html">NON vbv</a>
         <a href="payment/order.html">Orders</a>
         <a href="contact.html">Contact</a>
         <a href="support.html">Support</a>
