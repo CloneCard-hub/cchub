@@ -333,13 +333,16 @@ footer{
     <img src="logo.png" alt="CCHub Logo">
 </div>
     <div class="menu-toggle" id="menu-toggle">☰</div>
-    <nav id="navbar">
-        <a href="items.html">NON vbv</a>
-        <a href="payment/order.html">Orders</a>
-        <a href="contact.html">Contact</a>
-        <a href="support.html">Support</a>
-        <a href="about.html">About</a>
-    </nav>
+   <nav id="navbar">
+    <a href="items.html">NON vbv</a>
+    <a href="payment/order.html">Orders</a>
+    <a href="contact.html">Contact</a>
+    <a href="support.html">Support</a>
+    <a href="about.html">About</a>
+    <a href="singup.html">Signup</a>
+    <a href="login.html" onclick="openLogin()">Login</a>
+    <a href="#" id="logoutBtn" onclick="logout()" style="display:none;">Logout</a>
+</nav>
 </header>
 
 <section class="hero">
@@ -667,6 +670,60 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<script>
+// MENU TOGGLE
+
+document.getElementById("menu-toggle").onclick = function(){
+    document.getElementById("navbar").classList.toggle("active");
+};
+
+// OPEN / CLOSE LOGIN
+function openLogin(){
+    document.getElementById("loginModal").style.display = "flex";
+}
+
+function closeLogin(){
+    document.getElementById("loginModal").style.display = "none";
+}
+
+// LOGIN SYSTEM
+function login(){
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    // CHANGE THIS USERNAME & PASSWORD
+    if(user === "admin" && pass === "1234"){
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("user", user);
+
+        alert("Login successful 🔥");
+        closeLogin();
+        checkLogin();
+    } else {
+        alert("Wrong credentials ❌");
+    }
+}
+
+// CHECK LOGIN STATUS
+function checkLogin(){
+    if(localStorage.getItem("loggedIn") === "true"){
+        document.querySelector('a[onclick="openLogin()"]').style.display = "none";
+        document.getElementById("logoutBtn").style.display = "inline";
+    }
+}
+
+// LOGOUT
+function logout(){
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("user");
+
+    alert("Logged out");
+    location.reload();
+}
+
+// RUN ON LOAD
+checkLogin();
+</script>
 <!-- TELEGRAM SECTION -->
 <section class="telegram-section">
     <a href="https://t.me/clone_cardhub" target="_blank" class="telegram-btn">
