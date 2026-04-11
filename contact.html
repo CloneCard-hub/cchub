@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact Us</title>
 
-<style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
+<style>
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:linear-gradient(135deg,#000000,#1a0000);
 min-height:100vh;
 display:flex;
 justify-content:center;
@@ -23,27 +23,51 @@ align-items:center;
 padding:20px;
 }
 
-/* Contact Box */
+/* Background Image */
+.bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-2;
+}
 
+/* Overlay */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+z-index:-1;
+}
+
+/* Glass Container */
 .contact-container{
-background:#111;
+background: rgba(255,255,255,0.05);
+backdrop-filter: blur(20px);
+border:1px solid rgba(255,255,255,0.1);
 padding:35px;
 width:100%;
 max-width:500px;
-border-radius:12px;
-box-shadow:0 0 25px rgba(255,0,0,0.25);
+border-radius:20px;
+box-shadow:0 20px 60px rgba(0,0,0,0.5);
 color:white;
 }
 
+/* Heading */
 .contact-container h2{
 text-align:center;
 margin-bottom:25px;
 color:#ff1a1a;
-font-size:28px;
+font-size:30px;
+letter-spacing:1px;
 }
 
 /* Inputs */
-
 .input-group{
 margin-bottom:18px;
 }
@@ -51,49 +75,47 @@ margin-bottom:18px;
 .input-group label{
 display:block;
 margin-bottom:6px;
-font-size:14px;
-color:#ccc;
+font-size:13px;
+color:#bbb;
 }
 
 .input-group input,
 .input-group textarea{
 width:100%;
 padding:12px;
-border:1px solid #333;
-background:#1a1a1a;
+border-radius:10px;
+border:1px solid rgba(255,255,255,0.1);
+background:rgba(255,255,255,0.05);
 color:white;
-border-radius:6px;
 outline:none;
-font-size:14px;
+transition:0.3s;
 }
 
 .input-group input:focus,
 .input-group textarea:focus{
 border-color:#ff1a1a;
-box-shadow:0 0 8px #ff1a1a;
+box-shadow:0 0 12px rgba(255,0,0,0.6);
 }
 
-/* Send Button */
-
+/* Button */
 button{
 width:100%;
 padding:12px;
 border:none;
-background:#ff1a1a;
+background:linear-gradient(135deg,#ff0000,#cc0000);
 color:white;
-font-size:16px;
-border-radius:6px;
+font-size:15px;
+border-radius:10px;
 cursor:pointer;
 transition:0.3s;
 }
 
 button:hover{
-background:#cc0000;
-box-shadow:0 0 10px #ff0000;
+transform:translateY(-2px);
+box-shadow:0 10px 25px rgba(255,0,0,0.5);
 }
 
 /* Telegram Button */
-
 .telegram-btn{
 display:flex;
 align-items:center;
@@ -101,38 +123,28 @@ justify-content:center;
 gap:8px;
 margin-top:12px;
 padding:12px;
-background:#0088cc;
-color:white;
+background:rgba(0,136,204,0.9);
+border-radius:10px;
 text-decoration:none;
-border-radius:6px;
-font-size:15px;
+color:white;
+font-size:14px;
 transition:0.3s;
 }
 
 .telegram-btn:hover{
-background:#0077b5;
-box-shadow:0 0 10px #0088cc;
-}
-
-/* Telegram Icon */
-
-.telegram-btn svg{
-width:18px;
-height:18px;
-fill:white;
+background:#0088cc;
+box-shadow:0 0 15px rgba(0,136,204,0.6);
 }
 
 /* Footer */
-
 .footer-text{
 text-align:center;
 margin-top:15px;
-font-size:13px;
-color:#777;
+font-size:12px;
+color:#aaa;
 }
 
 /* Mobile */
-
 @media(max-width:480px){
 
 .contact-container{
@@ -144,11 +156,14 @@ font-size:24px;
 }
 
 }
-
 </style>
 </head>
 
 <body>
+
+<!-- Background -->
+<img src="contact.png" class="bg">
+<div class="overlay"></div>
 
 <div class="contact-container">
 
@@ -175,7 +190,7 @@ font-size:24px;
 
 <a href="https://t.me/clone_cardhub" target="_blank" class="telegram-btn">
 
-<svg viewBox="0 0 24 24">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="white">
 <path d="M9.04 15.47l-.39 5.49c.56 0 .8-.24 1.1-.52l2.64-2.53 5.48 4.01c1 .55 1.71.26 1.96-.93l3.55-16.63c.33-1.54-.55-2.14-1.52-1.77L1.71 9.27C.23 9.84.25 10.68 1.46 11.05l5.55 1.73L19.89 5.7c.61-.38 1.17-.17.71.21"/>
 </svg>
 
