@@ -322,7 +322,19 @@ footer{
     }
 
 }
+.new-feature {
+    position: relative;
+    display: inline-block;
+    padding-left: 30px; /* space for image */
+}
 
+.new-tag {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px; /* adjust if needed */
+}
 </style>
 </head>
 
@@ -334,9 +346,11 @@ footer{
    </div>
 
    <div class="menu-toggle" id="menu-toggle">☰</div>
-
    <nav id="navbar">
-       <a href="items.html">NON vbv</a>
+       <a href="items.html" class="new-feature">
+    NON vbv
+    <img src="new.png" alt="New" class="new-tag">
+</a>
        <a href="payment/order.html">Orders</a>
        <a href="contact.html">Contact</a>
        <a href="support.html">Support</a>
