@@ -4,9 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Support - My Website</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
 <style>
-/* Global Styles */
+
+/* Global */
 * {
   margin: 0;
   padding: 0;
@@ -15,9 +18,22 @@
 
 body {
   font-family: 'Roboto', Arial, sans-serif;
-  background-color: #0f0f0f;
+  background: url('aboutbg.png') no-repeat center center/cover;
   color: #fff;
   line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Dark overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.65);
+  z-index: -1;
 }
 
 a {
@@ -27,40 +43,46 @@ a {
 
 /* Header */
 .header {
-  background: linear-gradient(90deg, #c80404, #ff0000);
+  background: rgba(200, 4, 4, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   padding: 25px 20px;
   text-align: center;
   font-size: 32px;
   font-weight: 700;
   letter-spacing: 1px;
-  color: #fff;
   box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
 
-/* Support Container */
+/* Container */
 .support-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px 20px;
+  height: calc(100vh - 100px);
+  padding: 20px;
 }
 
-/* Support Box */
+/* Glass Box (REDUCED BLUR) */
 .support-box {
-  background: #111;
-  border: 2px solid #c80404;
+  background: rgba(255,255,255,0.08); /* less transparent */
+  border: 1px solid rgba(255,0,0,0.4);
   border-radius: 15px;
   padding: 40px 30px;
   max-width: 400px;
   width: 100%;
   text-align: center;
-  box-shadow: 0 8px 25px rgba(255, 0, 0, 0.2);
-  transition: transform 0.3s, box-shadow 0.3s;
+
+  backdrop-filter: blur(6px); /* reduced blur */
+  -webkit-backdrop-filter: blur(6px);
+
+  box-shadow: 0 8px 25px rgba(255,0,0,0.2);
+  transition: 0.3s;
 }
 
 .support-box:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(255, 0, 0, 0.4);
+  box-shadow: 0 12px 30px rgba(255,0,0,0.4);
 }
 
 .support-box h2 {
@@ -72,32 +94,27 @@ a {
 .support-box p {
   font-size: 16px;
   margin-bottom: 25px;
-  color: #ccc;
+  color: #ddd;
 }
 
-/* Support Buttons */
+/* Buttons */
 .support-box a {
   display: block;
   margin: 12px 0;
-  padding: 12px 0;
-  background: #c80404;
+  padding: 12px;
+  background: rgba(200, 4, 4, 0.8);
   color: #fff;
   font-weight: 500;
   border-radius: 8px;
-  transition: 0.3s;
 }
 
 .support-box a:hover {
-  background: #ff1a1a;
+  background: rgba(255,0,0,0.95);
   transform: scale(1.05);
 }
 
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
-  .support-container {
-    padding: 40px 15px;
-  }
-
   .support-box {
     padding: 30px 20px;
   }
@@ -114,7 +131,6 @@ a {
 @media (max-width: 480px) {
   .header {
     font-size: 26px;
-    padding: 20px 15px;
   }
 
   .support-box {
@@ -129,8 +145,10 @@ a {
     font-size: 13px;
   }
 }
+
 </style>
 </head>
+
 <body>
 
 <div class="header">
@@ -141,6 +159,7 @@ a {
   <div class="support-box">
     <h2>Need Help?</h2>
     <p>Contact our team for assistance:</p>
+
     <a href="contact.html">Email Support</a>
     <a href="livechat.html">Live Chat</a>
   </div>
